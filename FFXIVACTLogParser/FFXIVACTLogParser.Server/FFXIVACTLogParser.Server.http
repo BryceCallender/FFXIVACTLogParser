@@ -1,0 +1,6 @@
+@FFXIVACTLogParser.Server_HostAddress = http://localhost:5069
+
+GET {{FFXIVACTLogParser.Server_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
