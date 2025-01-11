@@ -32,7 +32,7 @@ app.UseRoutes();
 if (app.Environment.IsDevelopment())
 {
     app.UseWebSockets();
-    app.UseViteDevelopmentServer(true);
+    app.UseViteDevelopmentServer();
 }
 
 app.Run();

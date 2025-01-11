@@ -4,6 +4,12 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - FFXIVACTLogParser</title>
+
+    <!-- Entry point for development -->
+    <environment include="Development">
+        <script type="module" src="https://localhost:5173/src/@@vite/client"></script>
+        <script type="module" src="https://localhost:5173/src/main.ts"></script>
+    </environment>
 </head>
 <body>
     <main class="main-content">

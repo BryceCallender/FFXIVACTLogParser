@@ -2,7 +2,7 @@ import './assets/main.css';
 
 import { createApp } from 'vue';
 
-import app from './app.vue';
+import App from './app.vue';
 
-createApp(app)
+createApp(App)
   .mount('#app');

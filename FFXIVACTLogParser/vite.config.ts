@@ -44,7 +44,7 @@ export default defineConfig(async () => {
 
   // Define Vite configuration
   const config: UserConfig = {
-    root: "ClientApp",
+    root: 'ClientApp',
     publicDir: false,
     build: {
       manifest: true,
