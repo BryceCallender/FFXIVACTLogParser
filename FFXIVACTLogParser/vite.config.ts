@@ -1,6 +1,7 @@
 import { fileURLToPath, URL } from 'node:url';
 import { UserConfig, defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
+import vueReactivityTransform from '@vue-macros/reactivity-transform/vite';
 import { spawn } from 'child_process';
 import fs from 'fs';
 import path from 'path';
@@ -63,7 +64,8 @@ export default defineConfig(async () => {
       }
     },
     plugins: [
-      vue()
+      vue(),
+      vueReactivityTransform()
     ],
     resolve: {
       alias: {
