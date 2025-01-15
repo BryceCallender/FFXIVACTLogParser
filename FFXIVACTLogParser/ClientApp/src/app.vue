@@ -1,19 +1,28 @@
 <style scoped src="./app.scss"></style>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <h1> {{ title }} </h1>
+  <Header></Header>
+  <div class="wrapper">
+    <div class="zone-container">
+      <img src="./assets/zone/112392.png">
+      <div class="pull-content">
+        <span>Features Rewritten</span>
+        <span>Pull 1 (4:15) - 80%</span>
+        <span>9:35PM - 9:39PM</span>
+      </div>
+      
     </div>
-  </header>
+    <PartyList></PartyList>
+    <UploadLogs></UploadLogs>
+  </div>
 </template>
 
 <script setup lang="ts">
 import { defineAsyncComponent } from 'vue';
+import Header from './components/header/header.vue';
+import UploadLogs from './components/upload-logs/upload-logs.vue';
 
 const PartyList = defineAsyncComponent(() => import('./components/party-list/party-list.vue'));
 
-const title = $ref('FFXIV ACT Log parser');
+import './utils/parser/parser-test';
 </script>

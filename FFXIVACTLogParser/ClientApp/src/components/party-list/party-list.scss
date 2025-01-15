@@ -1,0 +1,29 @@
+.party-list-container {
+    .party-list-content {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+
+        .party-member-container {
+            display: flex;
+
+            .role-container {
+                display: flex;
+                flex-direction: row;
+
+                .role-content {
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                    width: 85px;
+                }
+            }
+
+            .party-members-content {
+                display: flex;
+                gap: 8px;
+            }
+        }
+    }
+    
+}

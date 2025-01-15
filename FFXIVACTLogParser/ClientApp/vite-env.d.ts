@@ -1,4 +1,7 @@
-/// <reference types="vite/client" />
-
-// or for standalone version:
 /// <reference types="@vue-macros/reactivity-transform/macros-global" />
+/// <reference types="vite/client" />
+declare module '*.vue' {
+    import type { DefineComponent } from 'vue';
+    const component: DefineComponent<{}, {}, any>;
+    export default component;
+}
