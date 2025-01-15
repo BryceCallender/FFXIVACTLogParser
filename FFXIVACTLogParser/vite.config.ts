@@ -69,7 +69,8 @@ export default defineConfig(async () => {
     ],
     resolve: {
       alias: {
-        '@': fileURLToPath(new URL('./src', import.meta.url))
+        '@': fileURLToPath(new URL('./ClientApp/src', import.meta.url)),
+        '@assets': fileURLToPath(new URL('./ClientApp/src/assets', import.meta.url)),
       },
     },
   };
