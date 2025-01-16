@@ -7,8 +7,6 @@ export class NetworkUpdateHpLine extends ACTLine {
     maxHp?: number;
     currentMp?: number;
     maxMp?: number;
-    currentTp?: number;
-    maxTp?: number;
     positionX?: number;
     positionY?: number;
     positionZ?: number;
@@ -22,8 +20,6 @@ export class NetworkUpdateHpLine extends ACTLine {
         this.maxHp = parseInt(lineContents[5]);
         this.currentMp = parseInt(lineContents[6]);
         this.maxMp = parseInt(lineContents[7]);
-        this.currentTp = parseInt(lineContents[8]);
-        this.maxTp = parseInt(lineContents[9]);
         this.positionX = parseFloat(lineContents[10]);
         this.positionY = parseFloat(lineContents[11]);
         this.positionZ = parseFloat(lineContents[12]);
