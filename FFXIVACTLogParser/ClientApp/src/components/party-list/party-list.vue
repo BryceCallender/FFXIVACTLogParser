@@ -7,7 +7,7 @@
                 <div class="party-member-container">
                     <div class="role-container">
                         <div class="role-content">
-                            <img src="../../assets/class-icons/tank.png">
+                            <img src="@assets/class-icons/tank.png">
                             <span>Tanks</span>
                         </div>
                         <Divider layout="vertical" />
@@ -24,7 +24,7 @@
                 <div class="party-member-container">
                     <div class="role-container">
                         <div class="role-content">
-                            <img src="../../assets/class-icons/healer.png">
+                            <img src="@assets/class-icons/healer.png">
                             <span>Healers</span>
                         </div>
                         <Divider layout="vertical" />
@@ -41,7 +41,7 @@
                 <div class="party-member-container">
                     <div class="role-container">
                         <div class="role-content">
-                            <img src="../../assets/class-icons/dps.png">
+                            <img src="@assets/class-icons/dps.png">
                             <span>DPS</span>
                         </div>
                         <Divider layout="vertical" />
@@ -67,8 +67,6 @@
 </template>
 
 <script setup lang="ts">
-import Divider from 'primevue/divider';
 import PartyMember from '../party-member/party-member.vue';
-import Panel from 'primevue/panel';
 
 </script>

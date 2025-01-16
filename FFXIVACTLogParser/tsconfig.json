@@ -1,11 +1,34 @@
 {
-  "files": [],
-  "references": [
-    {
-      "path": "./tsconfig.node.json"
-    },
-    {
-      "path": "./tsconfig.app.json"
+  "compilerOptions": {
+    "noEmit": true,
+    "target": "ESNext",
+    "module": "ESNext",
+    "strict": false,
+    "strictPropertyInitialization": false,
+    "noImplicitThis": true,
+    "jsx": "preserve",
+    "moduleResolution": "bundler",
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "forceConsistentCasingInFileNames": true,
+    "useDefineForClassFields": true,
+    "verbatimModuleSyntax": false,
+    "resolveJsonModule": true,
+    "sourceMap": true,
+    "downlevelIteration": true,
+    "resolvePackageJsonImports": true,
+    "baseUrl": ".",
+    "types": [
+      "node",
+      "vue",
+      "@vue-macros/reactivity-transform/macros-global",
+      "vite/client",
+      "primevue"
+    ],
+    "paths": {
+      "@/*": ["./ClientApp/src/*"],
+      "@assets/": ["./ClientApp/src/assets"],
+      "@assets/*": ["./ClientApp/src/assets/*"],
     }
-  ]
+  }
 }
