@@ -9,4 +9,8 @@
   <ItemGroup>
     <PackageReference Include="Vite.AspNetCore" Version="2.3.0" />
   </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Platform.Core\Platform.Core.csproj" />
+  </ItemGroup>
 </Project>

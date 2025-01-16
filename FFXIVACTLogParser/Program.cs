@@ -1,5 +1,6 @@
 using FFXIVACTLogParser.AppCode.Routes;
 using Vite.AspNetCore;
+using Platform.Core.DI;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +12,7 @@ builder.Services.AddViteServices(options =>
     options.Server.AutoRun = true;
     options.Server.Https = true;
 });
+builder.Services.RegisterDependencyInjection();
 
 var app = builder.Build();
 

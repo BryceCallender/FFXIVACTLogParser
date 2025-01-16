@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35527.113 d17.12
+VisualStudioVersion = 17.12.35527.113
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FFXIVACTLogParser", "FFXIVACTLogParser.csproj", "{B946A50D-D17D-4FB5-B685-D57A16039EA7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Platform.Core", "..\Platform.Core\Platform.Core.csproj", "{780238FF-E0DA-420B-A2B0-1D4D45E33C5D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{B946A50D-D17D-4FB5-B685-D57A16039EA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B946A50D-D17D-4FB5-B685-D57A16039EA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B946A50D-D17D-4FB5-B685-D57A16039EA7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{780238FF-E0DA-420B-A2B0-1D4D45E33C5D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{780238FF-E0DA-420B-A2B0-1D4D45E33C5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{780238FF-E0DA-420B-A2B0-1D4D45E33C5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{780238FF-E0DA-420B-A2B0-1D4D45E33C5D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
