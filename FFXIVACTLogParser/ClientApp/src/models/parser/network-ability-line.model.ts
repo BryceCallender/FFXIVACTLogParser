@@ -1,4 +1,5 @@
 import { ACTLine } from "./act-line.model";
+import { FlagAndValue } from "./flag-and-value.model";
 
 export class NetworkAbilityLine extends ACTLine {
     sourceId?: number;
@@ -7,8 +8,9 @@ export class NetworkAbilityLine extends ACTLine {
     ability?: string;
     targetId?: number;
     target?: string;
-    flags?: number;
+    flag?: number;
     damage?: number;
+    actionEffects?: FlagAndValue[];
     targetCurrentHp?: number;
     targetMaxHp?: number;
     targetCurrentMp?: number;
@@ -48,8 +50,7 @@ export class NetworkAbilityLine extends ACTLine {
         this.ability = lineContents[5];
         this.targetId = parseInt(lineContents[6], 16);
         this.target = lineContents[7];
-        this.flags = parseInt(lineContents[8], 16);
+        this.flag = parseInt(lineContents[8], 16);
         this.damage = parseInt(lineContents[9], 16);
-        //24
     }
 }
