@@ -29,6 +29,16 @@
       "@/*": ["./ClientApp/src/*"],
       "@assets/": ["./ClientApp/src/assets"],
       "@assets/*": ["./ClientApp/src/assets/*"],
-    }
-  }
+      "@models/": ["./ClientApp/src/models"],
+      "@models/*": ["./ClientApp/src/models/*"],
+    },
+  },
+  "include": [
+    "./ClientApp/**/*.ts",
+    "./ClientApp/**/*.vue",
+    "./ClientApp/vite-env.d.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

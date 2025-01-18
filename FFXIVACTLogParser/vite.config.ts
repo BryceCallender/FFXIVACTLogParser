@@ -55,7 +55,7 @@ export default defineConfig(async () => {
       outDir: '../wwwroot',
       assetsDir: '',
       rollupOptions: {
-        input: 'ClientApp/src/main.ts',
+        input: './ClientApp/src/main.ts',
       }
     },
     server: {
@@ -88,6 +88,7 @@ export default defineConfig(async () => {
       alias: {
         '@': fileURLToPath(new URL('./ClientApp/src', import.meta.url)),
         '@assets': fileURLToPath(new URL('./ClientApp/src/assets', import.meta.url)),
+        '@models': fileURLToPath(new URL('./ClientApp/src/models', import.meta.url)),
       },
     },
   };
