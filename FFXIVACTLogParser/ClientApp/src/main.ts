@@ -7,6 +7,7 @@ import PrimeVue from 'primevue/config';
 import Aura from '@primevue/themes/aura';
 import ToastService from 'primevue/toastservice';
 import { definePreset } from '@primevue/themes';
+import './extensions/number-extensions';
 
 const presetTheme = definePreset(Aura, {
   semantic: {

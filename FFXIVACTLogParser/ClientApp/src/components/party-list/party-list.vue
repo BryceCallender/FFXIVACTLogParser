@@ -68,5 +68,6 @@
 
 <script setup lang="ts">
 import PartyMember from '../party-member/party-member.vue';
+import { Divider, Panel } from 'primevue';
 
 </script>

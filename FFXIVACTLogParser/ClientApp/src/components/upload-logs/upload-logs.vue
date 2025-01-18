@@ -9,6 +9,9 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { FileUpload, FileUploadSelectEvent } from 'primevue';
+import { useParserUploadStore } from '@/store';
+
+const parserStore$ = useParserUploadStore();
 
 const fileupload = ref();
 
@@ -17,15 +20,11 @@ function onFileSelect (e: FileUploadSelectEvent) {
     
     const reader = new FileReader();
 
-    reader.onprogress = async (e) => {
-        if (e.lengthComputable) {
-            const progress = (e.loaded / e.total) * 100;
-        }
-    };
-
     reader.onload = async (e) => {
-        const fileContent = e.target.result;
-        console.log(fileContent); 
+        const fileContent = e.target?.result as string;
+        const fileLines = fileContent?.split('\n');
+
+        parserStore$.parseLog(fileLines);
     };
 
     reader.readAsText(file);

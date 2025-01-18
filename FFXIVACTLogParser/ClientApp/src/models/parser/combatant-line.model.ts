@@ -14,8 +14,6 @@ export class CombatantLine extends ACTLine {
     maxHp?: number;
     currentMp?: number;
     maxMp?: number;
-    currentTp?: number;
-    maxTp?: number;
     positionX?: number;
     positionY?: number;
     positionZ?: number;
@@ -36,8 +34,6 @@ export class CombatantLine extends ACTLine {
         this.maxHp = parseInt(lineContents[12]);
         this.currentMp = parseInt(lineContents[13]);
         this.maxMp = parseInt(lineContents[14]);
-        this.currentTp = parseInt(lineContents[15]);
-        this.maxTp = parseInt(lineContents[16]);
         this.positionX = parseFloat(lineContents[17]);
         this.positionY = parseFloat(lineContents[18]);
         this.positionZ = parseFloat(lineContents[19]);

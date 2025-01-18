@@ -21,8 +21,12 @@
 import { defineAsyncComponent } from 'vue';
 import Header from './components/header/header.vue';
 import UploadLogs from './components/upload-logs/upload-logs.vue';
+import { useParserUploadStore } from '@/store';
 
 const PartyList = defineAsyncComponent(() => import('./components/party-list/party-list.vue'));
+
+const parserStore$ = useParserUploadStore();
+parserStore$.initalize();
 
 import './utils/parser/parser-test';
 </script>

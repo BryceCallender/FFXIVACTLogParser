@@ -13,5 +13,5 @@ const { job, name } = defineProps<{
     name: string;
 }>();
 
-const jobAsset = $computed(() => `@assets/job-icons/${job.toLowerCase().replace(' ', '_')}.png`);
+const jobAsset = $computed(() => new URL(`../../assets/job-icons/${job.toLowerCase().replace(' ', '_')}.png`, import.meta.url).href);
 </script>

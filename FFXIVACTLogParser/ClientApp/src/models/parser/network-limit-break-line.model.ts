@@ -1,6 +1,6 @@
 import { ACTLine } from "./act-line.model";
 
-export class LimitBreakLine extends ACTLine {
+export class NetworkLimitBreakLine extends ACTLine {
     value?: number; // increments of 0x00DC (200). Each bar is 0x2710 (10k) for total 0x7530 (30k) 
     bars?: number; 
 

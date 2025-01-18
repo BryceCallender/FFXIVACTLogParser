@@ -1,5 +1,9 @@
 export {};
 
+function hasFlag (this: number, flag: number): boolean {
+    return (this & flag) === flag;
+};
+
 // Extend the Number prototype to add a method for checking bitwise values
 declare global {
     interface Number {
@@ -7,6 +11,4 @@ declare global {
     }
 }
 
-Number.prototype.hasFlag = function (this: number, flag: number): boolean {
-    return (this & flag) === flag;
-};
+Number.prototype.hasFlag = hasFlag;

@@ -37,4 +37,5 @@ export class AbilityFlagConstants {
 
     // rando
     static readonly BLANK = 0xE0000000;
+    static readonly WIPE = 0x4000000F;
 }

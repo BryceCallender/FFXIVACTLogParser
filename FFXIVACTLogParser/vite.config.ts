@@ -5,8 +5,6 @@ import vueReactivityTransform from '@vue-macros/reactivity-transform/vite';
 import { spawn } from 'child_process';
 import fs from 'fs';
 import path from 'path';
-import Components from 'unplugin-vue-components/vite';
-import { PrimeVueResolver } from '@primevue/auto-import-resolver';
 
 // Get base folder for certificates.
 const baseFolder =
@@ -77,11 +75,6 @@ export default defineConfig(async () => {
           }
         }
       }),
-      Components({
-        resolvers: [
-          PrimeVueResolver()
-        ]
-      }),
       vueReactivityTransform()
     ],
     resolve: {
@@ -91,6 +84,7 @@ export default defineConfig(async () => {
         '@models': fileURLToPath(new URL('./ClientApp/src/models', import.meta.url)),
       },
     },
+    assetsInclude: ['**/*.csv']
   };
 
   return config;
