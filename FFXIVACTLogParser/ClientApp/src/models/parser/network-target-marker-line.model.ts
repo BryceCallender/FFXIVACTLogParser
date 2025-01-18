@@ -1,5 +1,21 @@
 import { ACTLine } from "./act-line.model";
 
+// ID	Description
+// 0	Hexagon 1
+// 1	Hexagon 2
+// 2	Hexagon 3
+// 3	Hexagon 4
+// 4	Hexagon 5
+// 5	Chain 1
+// 6	Chain 2
+// 7	Chain 3
+// 8	Ignore 1
+// 9	Ignore 2
+// 10	Square
+// 11	Circle
+// 12	Plus
+// 13	Triangle
+
 export class NetworkTargetMarkerLine extends ACTLine {
     operation?: string;
     waymark?: string;

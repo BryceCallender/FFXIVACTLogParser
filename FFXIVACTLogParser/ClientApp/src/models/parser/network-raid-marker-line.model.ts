@@ -1,5 +1,15 @@
 import { ACTLine } from "./act-line.model";
 
+// ID   Description
+// 0	A
+// 1	B
+// 2	C
+// 3	D
+// 4	1
+// 5	2
+// 6	3
+// 7	4
+
 export class NetworkRaidMarkerLine extends ACTLine {
     operation?: string;
     waymark?: string;
