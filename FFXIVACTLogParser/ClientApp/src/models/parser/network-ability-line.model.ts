@@ -1,5 +1,5 @@
 import { ACTLine } from "./act-line.model";
-import { FlagAndValue } from "./flag-and-value.model";
+import { ActionEffect } from "./action-effect";
 
 export class NetworkAbilityLine extends ACTLine {
     sourceId?: number;
@@ -10,7 +10,7 @@ export class NetworkAbilityLine extends ACTLine {
     target?: string;
     flag?: number;
     value?: number;
-    actionEffects?: FlagAndValue[];
+    actionEffects?: ActionEffect[];
     targetCurrentHp?: number;
     targetMaxHp?: number;
     targetCurrentMp?: number;

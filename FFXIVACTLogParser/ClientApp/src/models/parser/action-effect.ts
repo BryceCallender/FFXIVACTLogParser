@@ -1,4 +1,4 @@
-export interface FlagAndValue {
+export interface ActionEffect {
     flag?: number;
     value?: number;
 }

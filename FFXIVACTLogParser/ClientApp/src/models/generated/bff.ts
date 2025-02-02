@@ -8,6 +8,26 @@
 /* eslint-disable */
 // ReSharper disable InconsistentNaming
 
+export abstract class ApiBase {
+   private authToken: string;
+
+   setAuthToken(token: string) {
+       this.authToken = token;
+   }
+
+   protected constructor() {
+   }
+
+   protected transformOptions(options: RequestInit) {
+      options.headers = {
+         ...options.headers,
+         'Authorization': `Bearer ${this.authToken}`
+      };
+
+      return Promise.resolve(options);
+   }
+}
+
 export class ReportClient extends ApiBase {
     private http: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> };
     private baseUrl: string;
@@ -198,14 +218,14 @@ export class ReportClient extends ApiBase {
 
 export interface AddEncounterRequest {
     encounterNumber?: number;
+    start?: Date | undefined;
+    end?: Date | undefined;
     zoneId?: number;
     reportKey?: ReportKey;
     players?: Combatant[] | undefined;
     pets?: Pet[] | undefined;
     bossNpcs?: BossNPC[] | undefined;
     events?: ReportEvent[] | undefined;
-    start?: Date | undefined;
-    end?: Date | undefined;
 }
 
 export interface AddEncounterResponse {

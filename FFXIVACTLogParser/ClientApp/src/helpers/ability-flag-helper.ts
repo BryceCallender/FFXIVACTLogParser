@@ -10,7 +10,7 @@ export class AbilityFlagHelper {
     }
 
     static isCrit(flag: number): boolean {
-        return flag.hasFlag(AbilityFlagConstants.CRIT);
+        return flag.hasFlag(AbilityFlagConstants.CRIT) || flag.hasFlag(AbilityFlagConstants.CRIT_HEAL);
     }
 
     static isDirectHit(flag: number): boolean {
@@ -23,15 +23,15 @@ export class AbilityFlagHelper {
 
     static getValueFromAbilityFlag (flag: number, value: number): number {
         if (this.isDamageAbility(flag)) {
-            if (flag.hasFlag(AbilityFlagConstants.BIG_DAMAGE)) {
+            if (value.hasFlag(AbilityFlagConstants.BIG_DAMAGE)) {
                 return this.bigDamageConversion(value);
-            } else if (flag.hasFlag(AbilityFlagConstants.HALLOWED_DAMAGE)) {
+            } else if (value.hasFlag(AbilityFlagConstants.HALLOWED_DAMAGE)) {
                 return 0;
             } else {
                 return value >> 16 & 0xFFFF;
             }
         } else if(this.isHealingAbility(flag)) {
-            
+            return value >> 16 & 0xFFFF;
         }
     }
  

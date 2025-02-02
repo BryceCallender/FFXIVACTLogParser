@@ -47,7 +47,7 @@
       "useLeafType": false,
       "classTypes": [],
       "extendedClasses": [],
-      "extensionCode": "api-base-client.ts",
+      "extensionCode": "ClientApp/api-base-client.ts",
       "generateDefaultValues": true,
       "excludedTypeNames": [],
       "excludedParameterNames": [],
