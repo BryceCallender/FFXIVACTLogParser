@@ -346,5 +346,3 @@ function throwException(message: string, status: number, response: string, heade
     else
         throw new ApiException(message, status, response, headers, null);
 }
-
-C:\Users\bryce\Desktop\FFXIVACTLogParser\FFXIVACTLogParser\api-base-client.ts
