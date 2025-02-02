@@ -1,5 +1,3 @@
-@use "sass:math";
-
-@function pxToRem($size) {
-    @return $size / 16px * 1rem;
-}
+$light: 200;
+$normal: 400;
+$heavy: 500;

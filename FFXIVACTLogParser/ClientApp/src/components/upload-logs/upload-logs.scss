@@ -1,0 +1,25 @@
+@use "@assets/mixins.scss" as *;
+@use "@assets/variables" as *;
+
+.upload-logs-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: pxToRem(16);
+
+    .file-select-container {
+        display: flex;
+        flex-direction: column;
+        gap: pxToRem(8);
+
+        .file-label {
+            font-size: pxToRem(22);
+            font-weight: $heavy;
+        }
+    }
+
+    .p-progressbar {
+        width: 100%;
+    }
+}

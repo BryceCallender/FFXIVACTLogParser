@@ -31,6 +31,8 @@
       "@assets/*": ["./ClientApp/src/assets/*"],
       "@models/": ["./ClientApp/src/models"],
       "@models/*": ["./ClientApp/src/models/*"],
+      "@BFFAPI/": ["./ClientApp/src/models/generated"],
+      "@BFFAPI/*": ["./ClientApp/src/models/generated/*"]
     },
   },
   "include": [

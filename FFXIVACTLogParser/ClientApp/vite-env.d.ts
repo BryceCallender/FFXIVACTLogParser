@@ -1,4 +1,5 @@
 /// <reference types="@vue-macros/reactivity-transform/macros-global" />
+/// <reference types="@vue-macros/define-models/macros-global" />
 /// <reference types="vite/client" />
 declare module '*.vue' {
     import type { DefineComponent } from 'vue';

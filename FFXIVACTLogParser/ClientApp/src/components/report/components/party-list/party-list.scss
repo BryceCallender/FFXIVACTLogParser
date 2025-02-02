@@ -1,27 +1,28 @@
+@use "@assets/mixins.scss" as *;
+
 .party-list-container {
     .party-list-content {
         display: flex;
         flex-direction: column;
-        gap: 0.5rem;
+        gap: pxToRem(8);
 
         .party-member-container {
             display: flex;
 
             .role-container {
-                display: flex;
-                flex-direction: row;
+                display: grid;
+                grid-template-columns: 3fr 1fr;
 
                 .role-content {
                     display: flex;
                     align-items: center;
-                    gap: 8px;
-                    width: 85px;
+                    gap: pxToRem(8);
                 }
             }
 
             .party-members-content {
                 display: flex;
-                gap: 8px;
+                gap: pxToRem(8);
             }
         }
     }

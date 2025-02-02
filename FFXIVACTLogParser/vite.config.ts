@@ -54,7 +54,7 @@ export default defineConfig(async () => {
       assetsDir: '',
       rollupOptions: {
         input: './ClientApp/src/main.ts',
-      }
+      },
     },
     server: {
       strictPort: true,
@@ -82,9 +82,9 @@ export default defineConfig(async () => {
         '@': fileURLToPath(new URL('./ClientApp/src', import.meta.url)),
         '@assets': fileURLToPath(new URL('./ClientApp/src/assets', import.meta.url)),
         '@models': fileURLToPath(new URL('./ClientApp/src/models', import.meta.url)),
+        '@BFFAPI': fileURLToPath(new URL('./ClientApp/src/models/generated', import.meta.url))
       },
-    },
-    assetsInclude: ['**/*.csv']
+    }
   };
 
   return config;

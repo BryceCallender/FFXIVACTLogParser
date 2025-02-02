@@ -1,0 +1,19 @@
+@use "@assets/mixins.scss" as *;
+
+.login-container {
+    width: 25rem;
+    min-height: pxToRem(370);
+    max-height: calc(100vh - pxToRem(180));
+
+    .form {
+        display: flex;
+        flex-direction: column;
+        gap: pxToRem(16);
+
+        .form-field {
+            display: flex;
+            flex-direction: column;
+            gap: pxToRem(8);
+        }
+    }
+}

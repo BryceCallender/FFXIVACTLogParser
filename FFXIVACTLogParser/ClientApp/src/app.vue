@@ -2,31 +2,28 @@
 
 <template>
   <Header></Header>
-  <div class="wrapper">
-    <div class="zone-container">
-      <img src="./assets/zone/112392.png">
-      <div class="pull-content">
-        <span>Features Rewritten</span>
-        <span>Pull 1 (4:15) - 80%</span>
-        <span>9:35PM - 9:39PM</span>
-      </div>
-      
-    </div>
-    <PartyList></PartyList>
-    <UploadLogs></UploadLogs>
-  </div>
+  <RouterView />
 </template>
 
 <script setup lang="ts">
-import { defineAsyncComponent } from 'vue';
+import { onMounted } from 'vue';
 import Header from './components/header/header.vue';
-import UploadLogs from './components/upload-logs/upload-logs.vue';
+import supabase from './supabase-client';
 import { useParserUploadStore } from '@/store';
 
-const PartyList = defineAsyncComponent(() => import('./components/party-list/party-list.vue'));
-
-const parserStore$ = useParserUploadStore();
-parserStore$.initalize();
-
 import './utils/parser/parser-test';
+
+const store$ = useParserUploadStore();
+
+onMounted(async () => {
+  await supabase.auth.getSession().then(({ data }) => {
+    store$.session = data.session;
+  });
+
+  supabase.auth.onAuthStateChange((_, _session) => {
+    store$.session = _session;
+  });
+
+  store$.fetchZones();
+})
 </script>

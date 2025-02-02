@@ -38,4 +38,8 @@ export class AbilityFlagConstants {
     // rando
     static readonly BLANK = 0xE0000000;
     static readonly WIPE = 0x4000000F;
+    static readonly VICTORY = 0x40000003;
+    static readonly VICTORY_VARIANT = 0x40000002;
+
+    static readonly VICTORYS = this.VICTORY | this.VICTORY_VARIANT;
 }

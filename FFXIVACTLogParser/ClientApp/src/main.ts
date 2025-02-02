@@ -1,4 +1,5 @@
 import './assets/main.scss';
+import './extensions/number-extensions';
 
 import { createApp } from 'vue';
 import { createPinia } from 'pinia'
@@ -7,7 +8,8 @@ import PrimeVue from 'primevue/config';
 import Aura from '@primevue/themes/aura';
 import ToastService from 'primevue/toastservice';
 import { definePreset } from '@primevue/themes';
-import './extensions/number-extensions';
+import { createWebHistory, createRouter } from 'vue-router';
+import { routes } from './app.routes';
 
 const presetTheme = definePreset(Aura, {
   semantic: {
@@ -27,10 +29,16 @@ const presetTheme = definePreset(Aura, {
   }
 });
 
-const pinia = createPinia()
+const pinia = createPinia();
+
+const router = createRouter({
+  history: createWebHistory(),
+  routes,
+})
 
 createApp(App)
   .use(pinia)
+  .use(router)
   .use(ToastService)
   .use(PrimeVue, {
     // Default theme configuration

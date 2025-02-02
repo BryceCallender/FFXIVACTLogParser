@@ -1,5 +1,4 @@
 import { HitPoints } from "./hit-points.model";
-import { Job } from "./job.enum";
 import { ManaPoints } from "./mana-points.model";
 import { CombatantLine } from "./parser/combatant-line.model";
 import { Position } from "./position.model";
@@ -8,7 +7,7 @@ export class Combatant {
     name?: string;
     world?: string;
     level?: number;
-    job: Job;
+    jobId?: number;
 
     hitPoints?: HitPoints;
     manaPoints?: ManaPoints;
@@ -19,6 +18,7 @@ export class Combatant {
         this.name = combatantLine.name;
         this.world = combatantLine.worldName;
         this.level = combatantLine.level;
+        this.jobId = combatantLine.jobId;
 
         this.hitPoints = {
             current: combatantLine.currentHp,
@@ -36,5 +36,5 @@ export class Combatant {
             z: combatantLine.positionZ,
             facing: combatantLine.positionFacing
         }
-    }
+    } 
 }

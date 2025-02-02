@@ -1,4 +1,24 @@
 export enum Job {
     Unknown = 'Unknown',
-    
+    Paladin = 'paladin',
+    Warrior = 'warrior',
+    DarkKnight = 'dark knight',
+    Gunbreaker = 'gunbreaker',
+    WhiteMage = 'white mage',
+    Sage = 'sage',
+    Scholar = 'scholar',
+    Astrologian = 'astrologian',
+    Ninja = 'ninja',
+    Samurai = 'samurai',
+    Dragoon = 'dragoon',
+    Monk = 'monk',
+    Reaper = 'reaper',
+    Viper = 'viper',
+    Bard = 'bard',
+    Machinist = 'machinist',
+    Dancer = 'dancer',
+    Summoner = 'summoner',
+    RedMage = 'red mage',
+    BlackMage = 'black mage',
+    Pictomancer = 'pictomancer'
 }

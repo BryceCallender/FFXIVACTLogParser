@@ -21,6 +21,20 @@ export class AbilityFlagHelper {
         return this.isCrit(flag) && this.isDirectHit(flag);
     }
 
+    static getValueFromAbilityFlag (flag: number, value: number): number {
+        if (this.isDamageAbility(flag)) {
+            if (flag.hasFlag(AbilityFlagConstants.BIG_DAMAGE)) {
+                return this.bigDamageConversion(value);
+            } else if (flag.hasFlag(AbilityFlagConstants.HALLOWED_DAMAGE)) {
+                return 0;
+            } else {
+                return value >> 16 & 0xFFFF;
+            }
+        } else if(this.isHealingAbility(flag)) {
+            
+        }
+    }
+ 
     // FF14 loves to not actually give u a big damage value but you have to do byte manip
     // to get it out
     static bigDamageConversion(value: number): number {
@@ -64,7 +78,7 @@ export class AbilityFlagHelper {
         return result;
     }
 
-    static swapUint8Indices (arr: Uint8Array, from: number, to: number): Uint8Array {
+    static swapUint8Indices(arr: Uint8Array, from: number, to: number): Uint8Array {
         const swappedArray = new Uint8Array(arr);
 
         if (from < 0 || from >= swappedArray.length || to < 0 || to >= swappedArray.length) {
