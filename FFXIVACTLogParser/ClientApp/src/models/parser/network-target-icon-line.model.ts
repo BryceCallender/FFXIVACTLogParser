@@ -11,4 +11,12 @@ export class NetworkTargetIconLine extends ACTLine {
         this.target = lineContents[3];
         this.id = parseInt(lineContents[6], 16);
     }
+
+    minimal() {
+        return {
+            ...super.minimal(),
+            targetId: this.targetId,
+            id: this.id,
+        }
+    }
 }

@@ -13,4 +13,12 @@ export class NetworkDeathLine extends ACTLine {
         this.sourceId = parseInt(lineContents[4]);
         this.source = lineContents[5];
     }
+
+    minimal() {
+        return {
+            ...super.minimal(),
+            targetId: this.targetId,
+            sourceId: this.sourceId,
+        }
+    }
 }

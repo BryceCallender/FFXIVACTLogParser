@@ -9,4 +9,12 @@ export class NetworkLimitBreakLine extends ACTLine {
         this.value = parseInt(lineContents[2], 16);
         this.bars = parseInt(lineContents[3]);
     }
+
+    minimal() {
+        return {
+            ...super.minimal(),
+            value: this.value,
+            bars: this.bars
+        }
+    }
 }

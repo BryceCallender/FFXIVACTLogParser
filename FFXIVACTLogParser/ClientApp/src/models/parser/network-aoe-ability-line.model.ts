@@ -4,4 +4,10 @@ export class NetworkAOEAbilityLine extends NetworkAbilityLine {
     constructor(lineContents: string[]) {
         super(lineContents);
     }
+
+    minimal() {
+        return {
+            ...super.minimal()
+        };
+    }
 }

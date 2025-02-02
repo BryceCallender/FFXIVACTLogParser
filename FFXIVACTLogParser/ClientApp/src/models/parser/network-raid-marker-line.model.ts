@@ -29,4 +29,17 @@ export class NetworkRaidMarkerLine extends ACTLine {
         this.positionY = parseFloat(lineContents[7]);
         this.positionZ = parseFloat(lineContents[8]);
     }
+
+    minimal() {
+        return {
+            ...super.minimal(),
+            operation: this.operation,
+            waymark: this.waymark,
+            id: this.id,
+            name: this.name,
+            positionX: this.positionX,
+            positionY: this.positionY,
+            positionZ: this.positionZ
+        }
+    }
 }

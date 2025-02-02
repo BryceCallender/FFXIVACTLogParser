@@ -36,4 +36,27 @@ export class NetworkStatusEffects extends ACTLine {
         this.positionFacing = parseFloat(lineContents[14]);
         // todo: data0..30
     }
+
+    minimal() {
+        return {
+            ...super.minimal(),
+            targetId: this.targetId,
+            target: this.target,
+            jobLevelData: this.jobLevelData,
+            hp: this.hp,
+            maxHp: this.maxHp,
+            mp: this.mp,
+            maxMp: this.maxMp,
+            positionX: this.positionX,
+            positionY: this.positionY,
+            positionZ: this.positionZ,
+            positionFacing: this.positionFacing,
+            data0: this.data0,
+            data1: this.data1,
+            data2: this.data2,
+            data3: this.data3,
+            data4: this.data4,
+            data5: this.data5
+        }
+    }
 }

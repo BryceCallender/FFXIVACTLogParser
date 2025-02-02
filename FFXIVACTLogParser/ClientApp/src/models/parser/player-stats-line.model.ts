@@ -36,5 +36,27 @@ export class PlayerStatsLine extends ACTLine {
         this.skillSpeed = parseInt(lineContents[15]);
         this.spellSpeed = parseInt(lineContents[16]);
         this.tenacity = parseInt(lineContents[18]);
-    }   
+    }
+    
+    minimal() {
+        return {
+            ...super.minimal(),
+            jobId: this.jobId,
+            str: this.str,
+            dex: this.dex,
+            vitality: this.vitality,
+            intelligence: this.intelligence,
+            mind: this.mind,
+            piety: this.piety,
+            attack: this.attack,
+            directHit: this.directHit,
+            crit: this.crit,
+            attackMagicPotency: this.attackMagicPotency,
+            healMagicPotency: this.healMagicPotency,
+            determination: this.determination,
+            skillSpeed: this.skillSpeed,
+            spellSpeed: this.spellSpeed,
+            tenacity: this.tenacity
+        }
+    }
 }

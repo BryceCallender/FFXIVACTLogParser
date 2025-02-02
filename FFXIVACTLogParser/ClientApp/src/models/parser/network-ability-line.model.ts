@@ -85,4 +85,44 @@ export class NetworkAbilityLine extends ACTLine {
         this.animationLockTime = parseFloat(lineContents[52]);
         this.rotationHex = parseInt(lineContents[53]);
     }
+
+    minimal() {
+        return {
+            ...super.minimal(),
+            sourceId: this.sourceId,
+            source: this.source,
+            id: this.id,
+            ability: this.ability,
+            targetId: this.targetId,
+            target: this.target,
+            flag: this.flag,
+            value: this.value,
+            actionEffects: this.actionEffects,
+            targetCurrentHp: this.targetCurrentHp,
+            targetMaxHp: this.targetMaxHp,
+            targetCurrentMp: this.targetCurrentMp,
+            targetMaxMp: this.targetMaxMp,
+            targetX: this.targetX,
+            targetY: this.targetY,
+            targetZ: this.targetZ,
+            targetFacing: this.targetFacing,
+            currentHp: this.currentHp,
+            maxHp: this.maxHp,
+            currentMp: this.currentMp,
+            maxMp: this.maxMp,
+            positionX: this.positionX,
+            positionY: this.positionY,
+            positionZ: this.positionZ,
+            positionFacing: this.positionFacing,
+            sequence: this.sequence,
+            targetCount: this.targetCount,
+            ownerId: this.ownerId,
+            ownerName: this.ownerName,
+            effectDisplayType: this.effectDisplayType,
+            actionId: this.actionId,
+            actionAnimationId: this.actionAnimationId,
+            animationLockTime: this.animationLockTime,
+            rotationHex: this.rotationHex
+        }
+    }
 }

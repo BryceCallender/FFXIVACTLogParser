@@ -27,4 +27,21 @@ export class NetworkStartCastingLine extends ACTLine {
         this.positionZ = parseFloat(lineContents[11]);
         this.positionFacing = parseFloat(lineContents[12]);
     }
+
+    minimal() {
+        return {
+            ...super.minimal(),
+            sourceId: this.sourceId,
+            source: this.source,
+            id: this.id,
+            ability: this.ability,
+            targetId: this.targetId,
+            target: this.target,
+            castTime: this.castTime,
+            positionX: this.positionX,
+            positionY: this.positionY,
+            positionZ: this.positionZ,
+            positionFacing: this.positionFacing
+        }
+    }
 }

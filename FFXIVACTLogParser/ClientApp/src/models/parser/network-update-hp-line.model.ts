@@ -25,4 +25,20 @@ export class NetworkUpdateHpLine extends ACTLine {
         this.positionZ = parseFloat(lineContents[12]);
         this.positionFacing = parseFloat(lineContents[13]);
     }
+
+    minimal() {
+        return {
+            ...super.minimal(),
+            id: this.id,
+            name: this.name,
+            currentHp: this.currentHp,
+            maxHp: this.maxHp,
+            currentMp: this.currentMp,
+            maxMp: this.maxMp,
+            positionX: this.positionX,
+            positionY: this.positionY,
+            positionZ: this.positionZ,
+            positionFacing: this.positionFacing
+        }
+    }
 }

@@ -13,4 +13,11 @@ export class MapChangingLine extends ACTLine {
         this.placeName = lineContents[4];
         this.placeNameSub = lineContents[5];
     }
+
+    minimal() {
+        return {
+            ...super.minimal(),
+            id: this.id,
+        }
+    }
 }

@@ -33,4 +33,16 @@ export class NetworkTargetMarkerLine extends ACTLine {
         this.targetId = parseInt(lineContents[6], 16);
         this.target = lineContents[7];
     }
+
+    minimal() {
+        return {
+            ...super.minimal(),
+            operation: this.operation,
+            waymark: this.waymark,
+            id: this.id,
+            name: this.name,
+            targetId: this.targetId,
+            target: this.target
+        }
+    }
 }

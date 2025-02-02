@@ -9,4 +9,12 @@ export class ZoneChangedLine extends ACTLine {
         this.zoneId = parseInt(lineContents[2], 16);
         this.zoneName = lineContents[3];
     }
+
+    minimal() {
+        return {
+            ...super.minimal(),
+            zoneId: this.zoneId,
+            zoneName: this.zoneName
+        }
+    }
 }

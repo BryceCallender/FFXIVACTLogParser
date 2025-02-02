@@ -8,8 +8,16 @@ export class PartyListLine extends ACTLine {
         super(lineContents);
         this.partySize = parseInt(lineContents[2]);
         this.partyIds = [];
-        for (var i = 0; i < this.partySize; i++) {
+        for (let i = 0; i < this.partySize; i++) {
             this.partyIds.push(parseInt(lineContents[3 + i], 16));
+        }
+    }
+
+    minimal() {
+        return {
+            ...super.minimal(),
+            partySize: this.partySize,
+            partyIds: this.partyIds
         }
     }
 }

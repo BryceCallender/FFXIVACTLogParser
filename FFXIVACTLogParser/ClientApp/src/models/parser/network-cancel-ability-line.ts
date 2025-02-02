@@ -15,4 +15,14 @@ export class NetworkCancelAbilityLine extends ACTLine {
         this.name = lineContents[5];
         this.reason = lineContents[6];
     }
+
+    minimal() {
+        return {
+            ...super.minimal(),
+            sourceId: this.sourceId,
+            id: this.id,
+            name: this.name,
+            reason: this.reason
+        }
+    }
 }

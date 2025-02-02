@@ -25,4 +25,20 @@ export class NetworkBuffLine extends ACTLine {
         this.targetMaxHp = parseInt(lineContents[10]);
         this.sourceMaxHp = parseInt(lineContents[11]);
     }
+
+    minimal() {
+        return {
+            ...super.minimal(),
+            effectId: this.effectId,
+            effect: this.effect,
+            duration: this.duration,
+            sourceId: this.sourceId,
+            source: this.source,
+            targetId: this.targetId,
+            target: this.target,
+            count: this.count,
+            targetMaxHp: this.targetMaxHp,
+            sourceMaxHp: this.sourceMaxHp
+        }
+    }
 }

@@ -9,4 +9,12 @@ export class Network6DLine extends ACTLine {
         this.instance = parseInt(lineContents[2], 16);
         this.command = parseInt(lineContents[3], 16);
     }
+
+    minimal() {
+        return {
+            ...super.minimal(),
+            instance: this.instance,
+            command: this.command
+        }
+    }
 }

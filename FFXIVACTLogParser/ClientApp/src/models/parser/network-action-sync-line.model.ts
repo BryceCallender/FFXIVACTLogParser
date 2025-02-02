@@ -29,4 +29,22 @@ export class NetworkActionSyncLine extends ACTLine {
         this.positionZ = parseFloat(lineContents[13]);
         this.positionFacing = parseFloat(lineContents[14]);
     }
+
+    minimal() {
+        return {
+            ...super.minimal(),
+            id: this.id,
+            name: this.name,
+            sequenceId: this.sequenceId,
+            currentHp: this.currentHp,
+            maxHp: this.maxHp,
+            currentMp: this.currentMp,
+            maxMp: this.maxMp,
+            currentShield: this.currentShield,
+            positionX: this.positionX,
+            positionY: this.positionY,
+            positionZ: this.positionZ,
+            positionFacing: this.positionFacing
+        }
+    }
 }

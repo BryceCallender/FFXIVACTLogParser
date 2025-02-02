@@ -47,7 +47,7 @@ export class FFXIVMapper {
     private static toReportEvent(actLine: ACTLine) : BFFReportEvent {
         return {
             type: this.toLogMessageType(actLine.messageType),
-            content: JSON.stringify(actLine)
+            content: JSON.stringify(actLine.minimal())
         };
     }
 
@@ -107,7 +107,7 @@ export class FFXIVMapper {
     }
 
     private static toPlayers(playerMap: Record<number, Combatant>): BFFCombatant[] {
-        let combatants: BFFCombatant[] = [];
+        const combatants: BFFCombatant[] = [];
         for (const playerId in playerMap) {
             const player = playerMap[playerId];
             combatants.push(this.toPlayer(parseInt(playerId), player));
@@ -125,7 +125,7 @@ export class FFXIVMapper {
     }
 
     private static toPets(petMap: Record<number, Combatant>): BFFPet[] {
-        let pets: BFFPet[] = [];
+        const pets: BFFPet[] = [];
         for (const petId in petMap) {
             const pet = petMap[petId];
             pets.push(this.toPet(parseInt(petId), pet));

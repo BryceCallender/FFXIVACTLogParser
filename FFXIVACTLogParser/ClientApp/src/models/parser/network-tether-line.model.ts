@@ -15,4 +15,13 @@ export class NetworkTetherLine extends ACTLine {
         this.target = lineContents[5];
         this.id = parseInt(lineContents[8], 16);
     }
+
+    minimal() {
+        return {
+            ...super.minimal(),
+            sourceId: this.sourceId,
+            targetId: this.targetId,
+            id: this.id,
+        }
+    }
 }

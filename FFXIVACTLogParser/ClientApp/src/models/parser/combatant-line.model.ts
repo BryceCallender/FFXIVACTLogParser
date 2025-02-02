@@ -39,4 +39,20 @@ export class CombatantLine extends ACTLine {
         this.positionZ = parseFloat(lineContents[19]);
         this.positionFacing = parseFloat(lineContents[20]);
     }
+
+    minimal() {
+        return {
+            ...super.minimal(),
+            id: this.id,
+            ownerId: this.ownerId,
+            currentHp: this.currentHp,
+            maxHp: this.maxHp,
+            currentMp: this.currentMp,
+            maxMp: this.maxMp,
+            positionX: this.positionX,
+            positionY: this.positionY,
+            positionZ: this.positionZ,
+            positionFacing: this.positionFacing
+        }
+    }
 }

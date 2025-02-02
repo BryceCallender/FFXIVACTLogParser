@@ -33,4 +33,15 @@ export class NetworkDoTLine extends ACTLine {
         this.effectId = parseInt(lineContents[5], 16);
         this.damage = parseInt(lineContents[6], 16);
     }
+
+    minimal() {
+        return {
+            ...super.minimal(),
+            id: this.id,
+            name: this.name,
+            which: this.which,
+            effectId: this.effectId,
+            damage: this.damage
+        }
+    }
 }
