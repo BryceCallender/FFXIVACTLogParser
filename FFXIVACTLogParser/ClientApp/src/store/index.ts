@@ -64,7 +64,7 @@ export const useParserUploadStore = defineStore('parser', {
         },
         async parseLogAsync(lines: string[]): Promise<void> {
             return new Promise<void>(async (resolve) => {
-                let encounter: Encounter = {
+                const encounter: Encounter = {
                     playerMap: {},
                     petMap: {},
                     bossNpcMap: {},
@@ -235,7 +235,7 @@ export const useParserUploadStore = defineStore('parser', {
                             const networkUpdateHpLine = new NetworkUpdateHpLine(splitLines);
                             encounter.events.push(networkUpdateHpLine);
 
-                            var combatant = encounter.allCombatantMap[networkUpdateHpLine.id];
+                            const combatant = encounter.allCombatantMap[networkUpdateHpLine.id];
                             if (combatant) {
                                 combatant.hitPoints.current -= networkUpdateHpLine.currentHp;
                             }
