@@ -11,7 +11,7 @@ import Header from './components/header/header.vue';
 import supabase from './supabase-client';
 import { useParserUploadStore } from '@/store';
 
-import './utils/parser/parser-test';
+// import './utils/parser/parser-test';
 
 const store$ = useParserUploadStore();
 

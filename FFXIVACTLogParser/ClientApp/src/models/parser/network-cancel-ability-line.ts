@@ -21,7 +21,6 @@ export class NetworkCancelAbilityLine extends ACTLine {
             ...super.minimal(),
             sourceId: this.sourceId,
             id: this.id,
-            name: this.name,
             reason: this.reason
         }
     }

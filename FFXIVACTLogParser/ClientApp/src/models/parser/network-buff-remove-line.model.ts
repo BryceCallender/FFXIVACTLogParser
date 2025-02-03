@@ -23,9 +23,7 @@ export class NetworkBuffRemoveLine extends ACTLine {
             ...super.minimal(),
             effectId: this.effectId,
             sourceId: this.sourceId,
-            source: this.source,
             targetId: this.targetId,
-            target: this.target,
             count: this.count
         }
     }

@@ -24,8 +24,8 @@ import { AbilityFlagConstants } from '@/models/constants/ability-flag-constants.
 import { Combatant } from '@/models/combatant.model';
 import { Duration } from '@models/duration.model';
 import { FFXIVMapper } from '@/mappers/ffxiv.mapper';
-import { ReportKey } from '@BFFAPI/bff';
 import { AbilityFlagHelper } from '@/helpers/ability-flag-helper';
+import { Pet } from '@/models/pet.model';
 
 export const useParserUploadStore = defineStore('parser', {
     state: (): ParseUploadState => ({
@@ -99,18 +99,20 @@ export const useParserUploadStore = defineStore('parser', {
                             break;
                         }
                         case LogMessageType.AddCombatant: {
-                            const addCombatantLine = new AddCombatantLine(splitLines);
-                            encounter.events.push(addCombatantLine);
-
                             if (!encounter.zone) {
                                 break;
                             }
 
+                            const addCombatantLine = new AddCombatantLine(splitLines);
+                            encounter.events.push(addCombatantLine);
+
                             const combatant = new Combatant(addCombatantLine);
                             if (addCombatantLine.id.hasFlag(AbilityFlagConstants.PLAYER_ID)) {
                                 encounter.playerMap[addCombatantLine.id] = combatant;
-                            } else if (addCombatantLine.id.hasFlag(AbilityFlagConstants.PET_ID) && addCombatantLine.ownerId > 0) {
-                                encounter.petMap[addCombatantLine.id] = combatant;
+                            } else if (addCombatantLine.ownerId > 0) {
+                                const pet = new Pet(addCombatantLine);
+                                encounter.petMap[addCombatantLine.id] = pet;
+                                encounter.playerMap[addCombatantLine.ownerId].pets.push(pet);
                             } else {
                                 encounter.bossNpcMap[addCombatantLine.id] = combatant;
                             }
@@ -125,10 +127,6 @@ export const useParserUploadStore = defineStore('parser', {
 
                             if (removeCombatantLine.id.hasFlag(AbilityFlagConstants.PLAYER_ID)) {
                                 delete encounter.playerMap[removeCombatantLine.id];
-                            } else if (removeCombatantLine.id.hasFlag(AbilityFlagConstants.PET_ID)) {
-                                delete encounter.petMap[removeCombatantLine.id];
-                            } else {
-                                delete encounter.bossNpcMap[removeCombatantLine.id];
                             }
 
                             delete encounter.allCombatantMap[removeCombatantLine.id];
@@ -136,26 +134,27 @@ export const useParserUploadStore = defineStore('parser', {
                             break;
                         }
                         case LogMessageType.NetworkStartsCasting: {
+                            if (!encounter.zone) {
+                                break;
+                            }
+                            
                             const networkCastingLine = new NetworkStartCastingLine(splitLines);
+                            encounter.events.push(networkCastingLine);
+
                             break;
                         }
                         case LogMessageType.NetworkAbility:
                         case LogMessageType.NetworkAOEAbility: {
-                            const networkAbilityLine = new NetworkAbilityLine(splitLines);
-
-                            // Dont care about abilities not actually in a pf zone
                             if (!encounter.zone) {
                                 break;
                             }
 
+                            const networkAbilityLine = new NetworkAbilityLine(splitLines);
                             encounter.events.push(networkAbilityLine);
 
                             if (!encounter.startTime && encounter.bossNpcMap[networkAbilityLine.targetId]) {
                                 encounter.startTime = networkAbilityLine.timestamp;
                             }
-
-                            const value = AbilityFlagHelper.getValueFromAbilityFlag(networkAbilityLine.flag, networkAbilityLine.value);
-                            console.log(`${networkAbilityLine.source} used ${networkAbilityLine.ability} for ${value} damage`);
 
                             break;
                         }
@@ -164,15 +163,30 @@ export const useParserUploadStore = defineStore('parser', {
                             break;
                         }
                         case LogMessageType.NetworkDoT: {
+                            if (!encounter.zone) {
+                                break;
+                            }
+
                             const networkDotLine = new NetworkDoTLine(splitLines);
+                            encounter.events.push(networkDotLine);
                             break;
                         }
                         case LogMessageType.NetworkDeath: {
+                            if (!encounter.zone) {
+                                break;
+                            }
+
                             const networkDeathLine = new NetworkDeathLine(splitLines);
+                            encounter.events.push(networkDeathLine);
                             break;
                         }
                         case LogMessageType.NetworkBuff: {
+                            if (!encounter.zone) {
+                                break;
+                            }
+
                             const networkBuffLine = new NetworkBuffLine(splitLines);
+                            encounter.events.push(networkBuffLine);
                             break;
                         }
                         case LogMessageType.NetworkTargetIcon: {
@@ -181,10 +195,16 @@ export const useParserUploadStore = defineStore('parser', {
                         }
                         case LogMessageType.NetworkTargetMarker: {
                             const networkTargetMarkerLine = new NetworkTargetMarkerLine(splitLines);
+                            encounter.events.push(networkTargetMarkerLine);
                             break;
                         }
                         case LogMessageType.NetworkBuffRemove: {
+                            if (!encounter.zone) {
+                                break;
+                            }
+
                             const networkBuffRemoveLine = new NetworkBuffRemoveLine(splitLines);
+                            encounter.events.push(networkBuffRemoveLine);
                             break;
                         }
                         case LogMessageType.Network6D: {
@@ -194,7 +214,7 @@ export const useParserUploadStore = defineStore('parser', {
                             if (network6D.command.hasFlag(AbilityFlagConstants.WIPE)) {
                                 encounter.endTime = network6D.timestamp;
                                 const newEncounter = JSON.parse(JSON.stringify(encounter));
-                                await this.createEncounter(this.uploadReportKey, newEncounter);
+                                await this.createEncounter(this.uploadReportKey, encounter);
                                 this.encounters.push(newEncounter);
                                 encounter.startTime = null;
                                 encounter.events = [];
@@ -205,7 +225,7 @@ export const useParserUploadStore = defineStore('parser', {
                             if (network6D.command === AbilityFlagConstants.VICTORY) {
                                 encounter.endTime = network6D.timestamp;
                                 const newEncounter = JSON.parse(JSON.stringify(encounter));
-                                await this.createEncounter(this.uploadReportKey, newEncounter);
+                                await this.createEncounter(this.uploadReportKey, encounter);
                                 this.encounters.push(newEncounter);
                                 encounter.startTime = null;
                                 encounter.events = [];
@@ -220,7 +240,13 @@ export const useParserUploadStore = defineStore('parser', {
                             break;
                         }
                         case LogMessageType.NetworkLimitBreak: {
+                            if (!encounter.zone) {
+                                break;
+                            }
+
                             const networkLimitBreakLine = new NetworkLimitBreakLine(splitLines);
+                            encounter.events.push(networkLimitBreakLine);
+
                             break;
                         }
                         case LogMessageType.NetworkEffectResult: {
@@ -246,7 +272,6 @@ export const useParserUploadStore = defineStore('parser', {
                 }
 
                 this.progress = 100;
-                console.log('Log parsing finished...');
                 resolve();
             });
         },

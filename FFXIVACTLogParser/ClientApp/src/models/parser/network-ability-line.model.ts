@@ -1,3 +1,4 @@
+import { AbilityFlagHelper } from "@/helpers/ability-flag-helper";
 import { ACTLine } from "./act-line.model";
 import { ActionEffect } from "./action-effect";
 
@@ -8,8 +9,6 @@ export class NetworkAbilityLine extends ACTLine {
     ability?: string;
     targetId?: number;
     target?: string;
-    flag?: number;
-    value?: number;
     actionEffects?: ActionEffect[];
     targetCurrentHp?: number;
     targetMaxHp?: number;
@@ -46,15 +45,16 @@ export class NetworkAbilityLine extends ACTLine {
         this.ability = lineContents[5];
         this.targetId = parseInt(lineContents[6], 16);
         this.target = lineContents[7];
-        this.flag = parseInt(lineContents[8].padStart(8, '0'), 16);
-        this.value = parseInt(lineContents[9].padStart(8 , '0'), 16);
         //read all flag and values
-        let index = 10;
+        let index = 8;
         this.actionEffects = [];
         while (lineContents[index] !== '0') {
+            const flag = parseInt(lineContents[index].padStart(8, '0'), 16);
             this.actionEffects.push({
-                flag: parseInt(lineContents[index].padStart(8, '0'), 16),
-                value: parseInt(lineContents[index + 1].padStart(8, '0'))
+                flag,
+                value: AbilityFlagHelper.getValueFromAbilityFlag(flag, parseInt(lineContents[index + 1].padStart(8, '0'), 16)),
+                type: AbilityFlagHelper.toAbilityType(flag),
+                severity: AbilityFlagHelper.toAbilitySeverity(flag)
             });
             index += 2;
         }
@@ -90,13 +90,9 @@ export class NetworkAbilityLine extends ACTLine {
         return {
             ...super.minimal(),
             sourceId: this.sourceId,
-            source: this.source,
             id: this.id,
             ability: this.ability,
             targetId: this.targetId,
-            target: this.target,
-            flag: this.flag,
-            value: this.value,
             actionEffects: this.actionEffects,
             targetCurrentHp: this.targetCurrentHp,
             targetMaxHp: this.targetMaxHp,
@@ -114,15 +110,8 @@ export class NetworkAbilityLine extends ACTLine {
             positionY: this.positionY,
             positionZ: this.positionZ,
             positionFacing: this.positionFacing,
-            sequence: this.sequence,
-            targetCount: this.targetCount,
             ownerId: this.ownerId,
-            ownerName: this.ownerName,
-            effectDisplayType: this.effectDisplayType,
             actionId: this.actionId,
-            actionAnimationId: this.actionAnimationId,
-            animationLockTime: this.animationLockTime,
-            rotationHex: this.rotationHex
         }
     }
 }

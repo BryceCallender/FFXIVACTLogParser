@@ -2,15 +2,23 @@
 
 <template>
     <div class="upload-logs-container">
-        <div class="file-select-container">
-            <div class="file-label">
-                Select a file to upload!
+        <template v-if="uploadComplete">
+            <div class="upload-complete">
+                <h3>Upload Complete!</h3>
+                <Button label="View Report" @click="viewReport"></Button>
             </div>
-            <FileUpload ref="fileupload" mode="basic" name="logUpload" accept=".log" chooseLabel="Browse"/>
-        </div>
-        <InputText type="text" v-model="reportName" placeholder="Report Name"/>
-        <Button label="Go!" @click="processFile" :disabled="disabled"></Button>
-        <ProgressBar v-if="progress > 0" :value="progress"></ProgressBar>
+        </template>
+        <template v-else>
+            <div class="file-select-container">
+                <div class="file-label">
+                    Select a file to upload!
+                </div>
+                <FileUpload ref="fileupload" mode="basic" name="logUpload" accept=".log" chooseLabel="Browse"/>
+            </div>
+            <InputText type="text" v-model="reportName" placeholder="Report Name"/>
+            <Button label="Go!" @click="processFile" :disabled="disabled"></Button>
+            <ProgressBar v-if="progress > 0" :value="progress"></ProgressBar>
+        </template>
     </div>
 </template>
 
@@ -22,21 +30,24 @@ import ProgressBar from 'primevue/progressbar';
 import InputText from 'primevue/inputtext';
 import { useParserUploadStore } from '@/store';
 import { storeToRefs } from 'pinia';
+import { useRouter } from 'vue-router';
+import { RouteNames } from '@/app.routes';
 
 const parserStore$ = useParserUploadStore();
-const { progress } = $(storeToRefs(parserStore$));
+const { progress, uploadReportKey } = $(storeToRefs(parserStore$));
+
+const router = useRouter();
 
 const fileupload = useTemplateRef<FileUploadState>('fileupload');
 const canProcessFile = $computed(() => fileupload.value?.files?.length > 0);
 
 let reportName = $ref<string>();
-
+let uploadComplete = $ref(false);
 let isProcessing = $ref(false);
 const disabled = $computed(() => !canProcessFile || isProcessing);
 
 function processFile () {
     const file = fileupload.value.files[0];
-    
     const reader = new FileReader();
 
     reader.onload = async (e) => {
@@ -49,10 +60,14 @@ function processFile () {
             await parserStore$.parseLogAsync(fileLines);
         } finally {
             isProcessing = false;
+            uploadComplete = true;
         }
     };
 
     reader.readAsText(file);
 }
 
+function viewReport() {
+    router.push({ name: RouteNames.Report, params: { key: uploadReportKey }});
+}
 </script>

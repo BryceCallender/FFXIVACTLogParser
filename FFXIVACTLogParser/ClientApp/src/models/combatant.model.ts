@@ -1,9 +1,11 @@
 import { HitPoints } from "./hit-points.model";
 import { ManaPoints } from "./mana-points.model";
 import { CombatantLine } from "./parser/combatant-line.model";
+import { Pet } from "./pet.model";
 import { Position } from "./position.model";
 
 export class Combatant {
+    id?: number;
     name?: string;
     world?: string;
     level?: number;
@@ -14,7 +16,10 @@ export class Combatant {
 
     position?: Position;
 
+    pets?: Pet[];
+
     constructor(combatantLine: CombatantLine) {
+        this.id = combatantLine.id;
         this.name = combatantLine.name;
         this.world = combatantLine.worldName;
         this.level = combatantLine.level;
@@ -36,5 +41,7 @@ export class Combatant {
             z: combatantLine.positionZ,
             facing: combatantLine.positionFacing
         }
+
+        this.pets = [];
     } 
 }

@@ -1,5 +1,6 @@
 import { Combatant } from "./combatant.model";
 import { ACTLine } from "./parser/act-line.model";
+import { Pet } from "./pet.model";
 import { Zone } from "./zone.model";
 
 export interface Encounter {
@@ -9,7 +10,7 @@ export interface Encounter {
     playerMap?: Record<number, Combatant>;
 
     // pets
-    petMap?: Record<number, Combatant>;
+    petMap?: Record<number, Pet>;
 
     // npcs
     bossNpcMap?: Record<number, Combatant>;

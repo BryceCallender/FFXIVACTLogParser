@@ -40,9 +40,7 @@ export class NetworkTargetMarkerLine extends ACTLine {
             operation: this.operation,
             waymark: this.waymark,
             id: this.id,
-            name: this.name,
             targetId: this.targetId,
-            target: this.target
         }
     }
 }

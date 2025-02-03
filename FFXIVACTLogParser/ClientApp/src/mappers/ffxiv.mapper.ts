@@ -2,6 +2,7 @@ import { Combatant } from "@/models/combatant.model";
 import { Encounter } from "@/models/encounter.model";
 import { LogMessageType } from "@/models/log-message-type.enum";
 import { ACTLine } from "@/models/parser/act-line.model";
+import { Pet } from "@/models/pet.model";
 import { Zone } from "@/models/zone.model";
 import { 
     Zone as BFFZone, 
@@ -35,7 +36,7 @@ export class FFXIVMapper {
                 key: reportKey
             },
             players: this.toPlayers(encounter.playerMap),
-            pets: this.toPets(encounter.petMap),
+            pets: this.toPets(encounter.petMap, encounter.playerMap),
             events: this.toReportEvents(encounter.events)
         };
     }
@@ -45,10 +46,10 @@ export class FFXIVMapper {
     }
 
     private static toReportEvent(actLine: ACTLine) : BFFReportEvent {
-        return {
+        return ({
             type: this.toLogMessageType(actLine.messageType),
             content: JSON.stringify(actLine.minimal())
-        };
+        });
     }
 
     private static toLogMessageType(type: number): BFFLogMessageType {
@@ -124,21 +125,22 @@ export class FFXIVMapper {
         };
     }
 
-    private static toPets(petMap: Record<number, Combatant>): BFFPet[] {
+    private static toPets(petMap: Record<number, Pet>, playerMap: Record<number, Combatant>): BFFPet[] {
         const pets: BFFPet[] = [];
         for (const petId in petMap) {
             const pet = petMap[petId];
-            pets.push(this.toPet(parseInt(petId), pet));
+            const player = playerMap[pet.ownerId];
+            pets.push(this.toPet(parseInt(petId), pet, player));
         }
 
         return pets;
     }
 
-    private static toPet(sourceId: number, combatant: Combatant): BFFPet {
+    private static toPet(sourceId: number, pet: Combatant, player?: Combatant): BFFPet {
         return {
             sourceId,
-            name: combatant.name,
-            ownerId: 0
+            name: pet.name,
+            ownerId: player.id,
         };
     }
 

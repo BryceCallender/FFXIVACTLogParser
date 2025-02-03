@@ -24,16 +24,13 @@ export class AbilityFlagConstants {
     static readonly DIRECT_HIT = 0x40;
     static readonly CRIT_DIRECT_HIT = 0x60;
 
-    // healing severity
-    static readonly CRIT_HEAL = 0x200004;
-
     // damage bitmasks
     static readonly HALLOWED_DAMAGE = 0x0100;
     static readonly BIG_DAMAGE = 0x4000;
 
     // object ids
     static readonly PLAYER_ID = 0x10000000;
-    static readonly PET_ID = 0x40000000;
+    static readonly NPC_ID = 0x40000000;
 
     // rando
     static readonly BLANK = 0xE0000000;

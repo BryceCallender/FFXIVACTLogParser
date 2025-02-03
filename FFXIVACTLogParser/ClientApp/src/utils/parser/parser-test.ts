@@ -13,3 +13,6 @@ console.log(new NetworkAbilityLine("21|2024-12-28T14:28:18.3630000-07:00|107EAAB
 console.log(new NetworkAbilityLine("21|2024-12-28T14:28:27.4600000-07:00|109044F3|Eri Yaxin|9066|Tendo Setsugekka|40000AAD|Fatebreaker|712003|5D694002|13E|FF8000|F|107A8000|0|0|0|0|0|0|0|0|0|0|21207805|22289071|10000|10000|||100.02|98.89|0.00|-3.11|157268|157268|10000|10000|||95.32|104.72|0.00|2.47|000031E0|0|1|00||01|9066|9066|0.100|E479|bd30a087099e43d0".split('|')));
 console.log(`Max damage test: ${AbilityFlagHelper.bigDamageConversion(0x423F400F)}`);
 console.log(AbilityFlagHelper.getValueFromAbilityFlag(0x00724003, 0x3C880000));
+
+const combatantLine = new AddCombatantLine("03|2024-12-28T14:28:11.7560000-07:00|1074603B|Genma Kuragi|1E|64|0000|35|Exodus|0|0|157167|157167|10000|10000|||100.68|116.07|0.00|-3.14|5077ed8974eb7b28".split('|'));
+console.log(combatantLine.minimal());

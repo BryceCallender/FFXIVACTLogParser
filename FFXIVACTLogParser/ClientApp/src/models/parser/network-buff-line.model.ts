@@ -33,12 +33,8 @@ export class NetworkBuffLine extends ACTLine {
             effect: this.effect,
             duration: this.duration,
             sourceId: this.sourceId,
-            source: this.source,
-            targetId: this.targetId,
-            target: this.target,
+            targetId: this.targetId,  
             count: this.count,
-            targetMaxHp: this.targetMaxHp,
-            sourceMaxHp: this.sourceMaxHp
         }
     }
 }

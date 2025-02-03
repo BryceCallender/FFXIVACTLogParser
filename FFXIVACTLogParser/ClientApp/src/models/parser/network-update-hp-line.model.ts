@@ -30,7 +30,6 @@ export class NetworkUpdateHpLine extends ACTLine {
         return {
             ...super.minimal(),
             id: this.id,
-            name: this.name,
             currentHp: this.currentHp,
             maxHp: this.maxHp,
             currentMp: this.currentMp,

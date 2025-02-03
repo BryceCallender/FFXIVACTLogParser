@@ -1,3 +1,5 @@
+import { ActionSeverity } from "@/models/parser/action-severity.enum";
+import { ActionType } from "@/models/parser/action-type.enum";
 import { AbilityFlagConstants } from "@models/constants/ability-flag-constants.model";
 
 export class AbilityFlagHelper {
@@ -10,7 +12,7 @@ export class AbilityFlagHelper {
     }
 
     static isCrit(flag: number): boolean {
-        return flag.hasFlag(AbilityFlagConstants.CRIT) || flag.hasFlag(AbilityFlagConstants.CRIT_HEAL);
+        return flag.hasFlag(AbilityFlagConstants.CRIT);
     }
 
     static isDirectHit(flag: number): boolean {
@@ -21,6 +23,10 @@ export class AbilityFlagHelper {
         return this.isCrit(flag) && this.isDirectHit(flag);
     }
 
+    static normalDamageCalculation(value: number): number {
+        return value >> 16 & 0xFFFF;
+    }
+
     static getValueFromAbilityFlag (flag: number, value: number): number {
         if (this.isDamageAbility(flag)) {
             if (value.hasFlag(AbilityFlagConstants.BIG_DAMAGE)) {
@@ -28,11 +34,43 @@ export class AbilityFlagHelper {
             } else if (value.hasFlag(AbilityFlagConstants.HALLOWED_DAMAGE)) {
                 return 0;
             } else {
-                return value >> 16 & 0xFFFF;
+                return this.normalDamageCalculation(value);
             }
         } else if(this.isHealingAbility(flag)) {
-            return value >> 16 & 0xFFFF;
+            return this.normalDamageCalculation(value);
         }
+    }
+
+    static toAbilityType (flag: number): ActionType {
+        if (this.isDamageAbility(flag)) {
+            return ActionType.Damage;
+        } else if (this.isHealingAbility(flag)) {
+            return ActionType.Heal;
+        }
+
+        return ActionType.Unknown;
+    }
+
+    static toAbilitySeverity (flag: number): ActionSeverity {
+        if (this.isDamageAbility(flag)) {
+            // 0xAB => A is the severity flag for damage
+            const damageSeverityFlag = flag >> 8 & 0xFF;
+            if (this.isCritDirectHit(damageSeverityFlag)) {
+                return ActionSeverity.CritDirectHit;
+            } else if (this.isCrit(damageSeverityFlag)) {
+                return ActionSeverity.Crit;
+            } else if (this.isDirectHit(damageSeverityFlag)) {
+                return ActionSeverity.DirectHit;
+            }
+        } else if (this.isHealingAbility(flag)) {
+            // 0xABC => A is the severity flag for damage
+            const healingSeverityFlag = flag >> 24 & 0xFF;
+            if (this.isCrit(healingSeverityFlag)) {
+                return ActionSeverity.Crit;
+            }
+        }
+
+        return ActionSeverity.Normal;
     }
  
     // FF14 loves to not actually give u a big damage value but you have to do byte manip
