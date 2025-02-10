@@ -1,4 +1,5 @@
-﻿using System.Runtime.Serialization;
+﻿using FFXIVACTLogParser.Models.Identifiers;
+using System.Runtime.Serialization;
 
 namespace FFXIVACTLogParser.Models.Report;
 

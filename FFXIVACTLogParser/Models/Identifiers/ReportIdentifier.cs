@@ -1,4 +1,4 @@
-﻿namespace FFXIVACTLogParser.Models.Report;
+﻿namespace FFXIVACTLogParser.Models.Identifiers;
 
 public record ReportId(long Id);
 

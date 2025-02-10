@@ -1,4 +1,5 @@
 ﻿using FFXIVACTLogParser.Mappers;
+using FFXIVACTLogParser.Models.Identifiers;
 using FFXIVACTLogParser.Models.Report;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -71,8 +72,7 @@ public class ReportController : ControllerBase
     }
 
     [HttpGet("{reportKey}")] // UkLWZg9D
-    [Authorize]
-    public async Task<ActionResult> ReportAsync(string reportKey, ReportType? type, ReportView? view, CancellationToken cancellationToken)
+    public async Task<ActionResult<GetReportResponse>> ReportAsync(string reportKey, ReportType? type, ReportView? view, CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
 
@@ -85,13 +85,33 @@ public class ReportController : ControllerBase
             return BadRequest("Report Key is invalid.");
 
         // Get data
-        var report = await _supabaseClient.From<ExternalModels.Report>().Get();
-
-        return Ok();
+        return new GetReportResponse
+        {
+            Fights =
+            [
+                new() 
+                {
+                    FightNumber = 1,
+                    Clear = false,
+                    HpPercentageLeft = 65,
+                    Zone = 752, // FRU
+                    Start = DateTime.Parse("2/01/2025 00:59:00"),
+                    End = DateTime.Parse("2/01/2025 1:00:00"),
+                },
+                new() 
+                {
+                    FightNumber = 2,
+                    Clear = true,
+                    HpPercentageLeft = 0,
+                    Zone = 752, // FRU
+                    Start = DateTime.Parse("2/01/2025 1:00:00"),
+                    End = DateTime.Parse("2/01/2025 1:18:00"),
+                }
+            ]
+        };
     }
 
     [HttpGet("zones")]
-    [Authorize]
     public async Task<ActionResult<ZoneResponse>> GetZonesAsync(CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
