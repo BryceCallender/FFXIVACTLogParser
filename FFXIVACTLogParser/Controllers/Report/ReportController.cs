@@ -72,7 +72,7 @@ public class ReportController : ControllerBase
     }
 
     [HttpGet("{reportKey}")] // UkLWZg9D
-    public async Task<ActionResult<GetReportResponse>> ReportAsync(string reportKey, ReportType? type, ReportView? view, CancellationToken cancellationToken)
+    public async Task<ActionResult<GetReportResponse>> ReportAsync(string reportKey, CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
 
@@ -87,6 +87,8 @@ public class ReportController : ControllerBase
         // Get data
         return new GetReportResponse
         {
+            ReportName = "fru",
+            Created = DateTime.Parse("2/01/2025 1:30:00"),
             Fights =
             [
                 new() 

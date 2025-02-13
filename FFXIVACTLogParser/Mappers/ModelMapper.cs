@@ -22,7 +22,7 @@ public class ModelMapper : IModelMapper
 
         return new()
         {
-            Id = zone.ZoneId,
+            Id = zone.Id,
             Name = zone.Name,
             FileName = zone.Image
         };
