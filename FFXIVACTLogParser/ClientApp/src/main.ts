@@ -1,5 +1,6 @@
 import './assets/main.scss';
 import './extensions/number-extensions';
+import 'primeicons/primeicons.css';
 
 import { createApp } from 'vue';
 import { createPinia } from 'pinia'
@@ -26,7 +27,7 @@ const presetTheme = definePreset(Aura, {
           900: '{blue.900}',
           950: '{blue.950}'
       }
-  }
+  },
 });
 
 const pinia = createPinia();

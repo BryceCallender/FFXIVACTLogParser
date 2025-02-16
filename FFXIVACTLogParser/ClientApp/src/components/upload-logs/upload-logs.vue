@@ -28,7 +28,7 @@ import FileUpload, { FileUploadState }  from 'primevue/fileupload';
 import Button from 'primevue/button';
 import ProgressBar from 'primevue/progressbar';
 import InputText from 'primevue/inputtext';
-import { useParserUploadStore } from '@/store';
+import { useParserUploadStore } from './store';
 import { storeToRefs } from 'pinia';
 import { useRouter } from 'vue-router';
 import { RouteNames } from '@/app.routes';

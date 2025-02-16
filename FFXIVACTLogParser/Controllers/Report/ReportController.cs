@@ -97,8 +97,8 @@ public class ReportController : ControllerBase
                     Clear = false,
                     HpPercentageLeft = 65,
                     Zone = 752, // FRU
-                    Start = DateTime.Parse("2/01/2025 00:59:00"),
-                    End = DateTime.Parse("2/01/2025 1:00:00"),
+                    Start = DateTime.Parse("2/01/2025 12:59:00"),
+                    End = DateTime.Parse("2/01/2025 12:59:34"),
                 },
                 new() 
                 {
@@ -106,8 +106,8 @@ public class ReportController : ControllerBase
                     Clear = true,
                     HpPercentageLeft = 0,
                     Zone = 752, // FRU
-                    Start = DateTime.Parse("2/01/2025 1:00:00"),
-                    End = DateTime.Parse("2/01/2025 1:18:00"),
+                    Start = DateTime.Parse("2/01/2025 13:00:00"),
+                    End = DateTime.Parse("2/01/2025 13:18:38"),
                 }
             ]
         };

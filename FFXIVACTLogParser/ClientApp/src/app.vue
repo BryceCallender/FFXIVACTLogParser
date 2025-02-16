@@ -8,22 +8,13 @@
 <script setup lang="ts">
 import { onMounted } from 'vue';
 import Header from './components/header/header.vue';
-import supabase from './supabase-client';
-import { useParserUploadStore } from '@/store';
+import { useZoneStore } from '@/stores/zone-store';
 
 // import './utils/parser/parser-test';
 
-const store$ = useParserUploadStore();
+const store$ = useZoneStore();
 
 onMounted(async () => {
-  await supabase.auth.getSession().then(({ data }) => {
-    store$.session = data.session;
-  });
-
-  supabase.auth.onAuthStateChange((_, _session) => {
-    store$.session = _session;
-  });
-
   store$.fetchZones();
 })
 </script>

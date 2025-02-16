@@ -1,0 +1,105 @@
+@use "@assets/mixins.scss" as *;
+@use "@assets/variables.scss" as *;
+
+.fight-container {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--p-panel-border-color);
+    border-top-left-radius: pxToRem(6);
+    border-top-right-radius: pxToRem(6);
+    border-bottom-left-radius: pxToRem(3);
+    border-bottom-right-radius: pxToRem(3);
+
+    a {
+        text-decoration: none;
+    }
+
+    .fight-content {
+        display: grid;
+        grid-template-columns: 2fr 7fr;
+
+        .fight-left-side {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            margin-left: pxToRem(16);
+
+            &::after {
+                content: '';
+                margin-left: pxToRem(16);
+                border-left: 1px solid var(--p-panel-border-color);
+                height: 110%;
+                margin-bottom: pxToRem(-3);
+            }
+
+            .pi {
+                color: $clear;
+            }
+
+            .percentage {
+                font-weight: $heavy;
+            }
+        }
+
+        .fight-right-side {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: pxToRem(2);
+            height: 100%;
+            padding: pxToRem(8);
+
+            .fight-pull-info {
+                display: flex;
+                gap: pxToRem(4);
+                font-size: pxToRem(18);
+                color: $wipe;
+
+                &.clear {
+                    color: $clear;
+                }
+            }
+
+            .fight-time {
+                font-size: pxToRem(14);
+                color: $alto;
+            }
+        }
+    }
+
+    .fight-completion-bar {
+        height: pxToRem(4);
+        
+        :deep(.p-progressbar-value) {
+            &.gold {
+                background-color: $gold;
+            }
+
+            &.pink {
+                background-color: $pink;
+            }
+
+            &.orange {
+                background-color: $orange;
+            }
+
+            &.purple {
+                background-color: $purple;
+            }
+
+            &.blue {
+                background-color: $blue;
+            }
+
+            &.green {
+                background-color: $green;
+            }
+
+            &.gray {
+                background-color: $gray;
+            }
+        }
+    }
+}

@@ -6,51 +6,32 @@ import { RemoveCombatantLine } from '@/models/parser/remove-combatant-line.model
 import { AddCombatantLine } from '@/models/parser/add-combatant-line.model';
 import { NetworkStartCastingLine } from '@/models/parser/network-start-casting-line';
 import { NetworkAbilityLine } from '@/models/parser/network-ability-line.model';
-import { NetworkCancelAbilityLine } from '@/models/parser/network-cancel-ability-line';
 import { NetworkDoTLine } from '@/models/parser/network-dot-line.model';
 import { NetworkDeathLine } from '@/models/parser/network-death-line.model';
 import { NetworkBuffLine } from '@/models/parser/network-buff-line.model';
-import { NetworkTargetIconLine } from '@/models/parser/network-target-icon-line.model';
 import { NetworkTargetMarkerLine } from '@/models/parser/network-target-marker-line.model';
 import { NetworkBuffRemoveLine } from '@/models/parser/network-buff-remove-line.model';
 import { Network6DLine } from '@/models/parser/network-6d-line.model';
-import { NetworkTetherLine } from '@/models/parser/network-tether-line.model';
 import { NetworkLimitBreakLine } from '@/models/parser/network-limit-break-line.model';
 import { NetworkUpdateHpLine } from '@/models/parser/network-update-hp-line.model';
-import { NetworkStatusEffects } from '@/models/parser/network-status-effects-line.model';
-import { NetworkActionSyncLine } from '@/models/parser/network-action-sync-line.model';
 import { Encounter } from '@/models/encounter.model';
 import { AbilityFlagConstants } from '@/models/constants/ability-flag-constants.model';
 import { Combatant } from '@/models/combatant.model';
 import { Duration } from '@models/duration.model';
 import { FFXIVMapper } from '@/mappers/ffxiv.mapper';
-import { AbilityFlagHelper } from '@/helpers/ability-flag-helper';
 import { Pet } from '@/models/pet.model';
+import { useZoneStore } from '@/stores/zone-store';
 
-export const useParserUploadStore = defineStore('parser', {
+export const useParserUploadStore = defineStore('upload', {
     state: (): ParseUploadState => ({
-        zones: {},
         encounters: [],
         progress: null,
-        session: null,
         uploadReportKey: 'UkLWZg9D'
     }),
     getters: {
 
     },
     actions: {
-        async initalize(): Promise<void> {
-            await this.fetchZones();
-        },
-        async fetchZones(): Promise<void> {
-            const { ReportClient } = await import('@BFFAPI/bff');
-
-            const client = new ReportClient();
-            client.setAuthToken(this.session.access_token);
-            await client.zones().then(resp => {
-                this.zones = FFXIVMapper.toZones(resp.zones);
-            });
-        },
         async createReport(reportName?: string): Promise<void> {
             const { ReportClient } = await import('@BFFAPI/bff');
 
@@ -75,6 +56,10 @@ export const useParserUploadStore = defineStore('parser', {
 
                 let lineIndex = 0;
                 this.progress = 0;
+
+                const zone$ = useZoneStore();
+                const zones = zone$.zones;
+
                 for (const line of lines) {
                     this.progress = (lineIndex++ / lines.length) * 100;
                     const splitLines = line.split('|');
@@ -85,8 +70,8 @@ export const useParserUploadStore = defineStore('parser', {
                             encounter.events.push(zoneChangedLine);
 
                             // check if its a valid party finder zone area and then assign to encounter
-                            if (this.zones[zoneChangedLine.zoneId]) {
-                                encounter.zone = this.zones[zoneChangedLine.zoneId];
+                            if (zones[zoneChangedLine.zoneId]) {
+                                encounter.zone = zones[zoneChangedLine.zoneId];
                             } else {
                                 encounter.playerMap = {};
                                 encounter.petMap = {};
@@ -158,10 +143,6 @@ export const useParserUploadStore = defineStore('parser', {
 
                             break;
                         }
-                        case LogMessageType.NetworkCancelAbility: {
-                            const networkCancelLine = new NetworkCancelAbilityLine(splitLines);
-                            break;
-                        }
                         case LogMessageType.NetworkDoT: {
                             if (!encounter.zone) {
                                 break;
@@ -187,10 +168,7 @@ export const useParserUploadStore = defineStore('parser', {
 
                             const networkBuffLine = new NetworkBuffLine(splitLines);
                             encounter.events.push(networkBuffLine);
-                            break;
-                        }
-                        case LogMessageType.NetworkTargetIcon: {
-                            const networkTargetIconLine = new NetworkTargetIconLine(splitLines);
+
                             break;
                         }
                         case LogMessageType.NetworkTargetMarker: {
@@ -203,11 +181,16 @@ export const useParserUploadStore = defineStore('parser', {
                                 break;
                             }
 
-                            const networkBuffRemoveLine = new NetworkBuffRemoveLine(splitLines);
-                            encounter.events.push(networkBuffRemoveLine);
+                            const networkBuffLine = new NetworkBuffRemoveLine(splitLines);
+                            encounter.events.push(networkBuffLine);
+
                             break;
                         }
                         case LogMessageType.Network6D: {
+                            if (!encounter.zone) {
+                                break;
+                            }
+
                             const network6D = new Network6DLine(splitLines);
                             encounter.events.push(network6D);
 
@@ -235,10 +218,6 @@ export const useParserUploadStore = defineStore('parser', {
 
                             break;
                         }
-                        case LogMessageType.NetworkTether: {
-                            const networkTetherLine = new NetworkTetherLine(splitLines);
-                            break;
-                        }
                         case LogMessageType.NetworkLimitBreak: {
                             if (!encounter.zone) {
                                 break;
@@ -247,14 +226,6 @@ export const useParserUploadStore = defineStore('parser', {
                             const networkLimitBreakLine = new NetworkLimitBreakLine(splitLines);
                             encounter.events.push(networkLimitBreakLine);
 
-                            break;
-                        }
-                        case LogMessageType.NetworkEffectResult: {
-                            const networkActionSyncLine = new NetworkActionSyncLine(splitLines);
-                            break;
-                        }
-                        case LogMessageType.NetworkStatusList: {
-                            const networkStatusEffectsLine = new NetworkStatusEffects(splitLines);
                             break;
                         }
                         case LogMessageType.NetworkUpdateHp: {

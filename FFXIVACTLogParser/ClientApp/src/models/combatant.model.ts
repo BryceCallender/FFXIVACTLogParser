@@ -1,3 +1,4 @@
+import { Buff } from "./buff.model";
 import { HitPoints } from "./hit-points.model";
 import { ManaPoints } from "./mana-points.model";
 import { CombatantLine } from "./parser/combatant-line.model";
@@ -17,6 +18,7 @@ export class Combatant {
     position?: Position;
 
     pets?: Pet[];
+    buffs?: Buff[];
 
     constructor(combatantLine: CombatantLine) {
         this.id = combatantLine.id;
@@ -43,5 +45,6 @@ export class Combatant {
         }
 
         this.pets = [];
+        this.buffs = [];
     } 
 }

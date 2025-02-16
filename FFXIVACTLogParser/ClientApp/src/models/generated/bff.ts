@@ -128,29 +128,20 @@ export class ReportClient extends ApiBase {
     }
 
     /**
-     * @param type (optional) 
-     * @param view (optional) 
      * @return OK
      */
-    report(reportKey: string, type: ReportType | undefined, view: ReportView | undefined, signal?: AbortSignal): Promise<void> {
-        let url_ = this.baseUrl + "/api/report/{reportKey}?";
+    report(reportKey: string, signal?: AbortSignal): Promise<GetReportResponse> {
+        let url_ = this.baseUrl + "/api/report/{reportKey}";
         if (reportKey === undefined || reportKey === null)
             throw new Error("The parameter 'reportKey' must be defined.");
         url_ = url_.replace("{reportKey}", encodeURIComponent("" + reportKey));
-        if (type === null)
-            throw new Error("The parameter 'type' cannot be null.");
-        else if (type !== undefined)
-            url_ += "type=" + encodeURIComponent("" + type) + "&";
-        if (view === null)
-            throw new Error("The parameter 'view' cannot be null.");
-        else if (view !== undefined)
-            url_ += "view=" + encodeURIComponent("" + view) + "&";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_: RequestInit = {
             method: "GET",
             signal,
             headers: {
+                "Accept": "text/plain"
             }
         };
 
@@ -161,19 +152,21 @@ export class ReportClient extends ApiBase {
         });
     }
 
-    protected processReport(response: Response): Promise<void> {
+    protected processReport(response: Response): Promise<GetReportResponse> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
             return response.text().then((_responseText) => {
-            return;
+            let result200: any = null;
+            result200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as GetReportResponse;
+            return result200;
             });
         } else if (status !== 200 && status !== 204) {
             return response.text().then((_responseText) => {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
-        return Promise.resolve<void>(null as any);
+        return Promise.resolve<GetReportResponse>(null as any);
     }
 
     /**
@@ -252,6 +245,21 @@ export interface CreateReportResponse {
     reportKey?: ReportKey;
 }
 
+export interface Fight {
+    fightNumber?: number | undefined;
+    zone?: number | undefined;
+    clear?: boolean | undefined;
+    hpPercentageLeft?: number | undefined;
+    start?: Date | undefined;
+    end?: Date | undefined;
+}
+
+export interface GetReportResponse {
+    reportName?: string | undefined;
+    created?: Date | undefined;
+    fights?: Fight[] | undefined;
+}
+
 export enum LogMessageType {
     LogLine = "LogLine",
     ChangeZone = "ChangeZone",
@@ -308,22 +316,6 @@ export interface ReportEvent {
 
 export interface ReportKey {
     key?: string | undefined;
-}
-
-export enum ReportType {
-    None = "None",
-    Summary = "Summary",
-    DamageDone = "DamageDone",
-    DamageTaken = "DamageTaken",
-    Healing = "Healing",
-    Buffs = "Buffs",
-    Deaths = "Deaths",
-}
-
-export enum ReportView {
-    None = "None",
-    Tables = "Tables",
-    Events = "Events",
 }
 
 export interface Zone {

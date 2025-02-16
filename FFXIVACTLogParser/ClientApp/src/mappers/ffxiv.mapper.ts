@@ -1,8 +1,10 @@
 import { Combatant } from "@/models/combatant.model";
 import { Encounter } from "@/models/encounter.model";
+import { Fight } from "@/models/fight.model";
 import { LogMessageType } from "@/models/log-message-type.enum";
 import { ACTLine } from "@/models/parser/act-line.model";
 import { Pet } from "@/models/pet.model";
+import { Report } from "@/models/report.model";
 import { Zone } from "@/models/zone.model";
 import { 
     Zone as BFFZone, 
@@ -11,7 +13,9 @@ import {
     LogMessageType as BFFLogMessageType,
     Combatant as BFFCombatant,
     Pet as BFFPet,
-    BossNPC as BFFBossNpc
+    BossNPC as BFFBossNpc,
+    Fight as BFFFight,
+    GetReportResponse
 } from "@BFFAPI/bff";
 
 export class FFXIVMapper {
@@ -31,7 +35,7 @@ export class FFXIVMapper {
             encounterNumber: encounter.pullNumber,
             start: encounter.startTime,
             end: encounter.endTime,
-            zoneId: encounter.zone.id,
+            zoneId: encounter.zone?.id,
             reportKey: {
                 key: reportKey
             },
@@ -41,6 +45,29 @@ export class FFXIVMapper {
         };
     }
 
+    public static toReport(report: GetReportResponse): Report {
+        return {
+            name: report.reportName,
+            created: new Date(report.created),
+            fights: this.toReportFights(report.fights)
+        }
+    }
+
+    private static toReportFights(fights: BFFFight[]): Fight[] {
+        return fights?.map(this.toReportFight.bind(this)) ?? [];
+    }
+
+    private static toReportFight(fight: BFFFight): Fight {
+        return {
+            id: fight.fightNumber,
+            zoneId: fight.zone,
+            start: new Date(fight.start),
+            end: new Date(fight.end),
+            hpPercentageLeft: fight.hpPercentageLeft,
+            clear: fight.clear
+        }
+    }
+
     private static toReportEvents(actLines: ACTLine[]) : BFFReportEvent[] {
         return actLines?.map(this.toReportEvent.bind(this)) ?? [];
     }
@@ -48,7 +75,7 @@ export class FFXIVMapper {
     private static toReportEvent(actLine: ACTLine) : BFFReportEvent {
         return ({
             type: this.toLogMessageType(actLine.messageType),
-            content: JSON.stringify(actLine.minimal())
+            content: actLine.minimal()
         });
     }
 

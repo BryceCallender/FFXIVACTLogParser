@@ -10,7 +10,7 @@
                 </a>
             </div>
             <div class="group">
-                <template v-if="session">
+                <template v-if="true">
                     <Button variant="text"> Sign Out </Button>
                     <Avatar label="BC" size="normal" />
                 </template>
@@ -28,12 +28,8 @@
 import Button from 'primevue/button';
 import Avatar from 'primevue/avatar';
 import LoginModal from '../auth/components/login/login.vue';
-import { useParserUploadStore } from '@/store';
 import { storeToRefs } from 'pinia';
 
-const store$ = useParserUploadStore();
-
-const { session } = $(storeToRefs(store$));
 
 let showSignIn = $ref(false);
 

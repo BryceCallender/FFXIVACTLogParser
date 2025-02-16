@@ -1,3 +1,5 @@
+@use "@assets/variables.scss" as *;
+
 body {
   font-family: "Roboto", serif;
 }
@@ -8,4 +10,32 @@ body {
   padding: 2rem;
   font-weight: normal;
   height: 100%;
+
+  .gold {
+    color: $gold;
+  }
+  
+  .pink {
+    color: $pink;
+  }
+  
+  .orange {
+    color: $orange;
+  }
+
+  .purple {
+    color: $purple;
+  }
+
+  .blue {
+    color: $blue;
+  }
+
+  .green {
+    color: $green;
+  }
+
+  .gray {
+    color: $gray;
+  }
 }

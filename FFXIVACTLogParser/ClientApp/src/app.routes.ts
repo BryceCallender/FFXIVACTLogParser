@@ -1,4 +1,5 @@
 import { RouteRecordRaw } from "vue-router";
+import { routes as ReportRoutes } from './components/report/report.routes';
 
 export enum RouteNames {
     Home = 'home',
@@ -9,7 +10,6 @@ export enum RouteNames {
 const RoutePathNames = {
     [RouteNames.Home]: '/',
     [RouteNames.Upload]: '/upload',
-    [RouteNames.Report]: '/report/:key'
 }
 
 export const routes: RouteRecordRaw[] = [
@@ -23,10 +23,5 @@ export const routes: RouteRecordRaw[] = [
         name: RouteNames.Upload,
         component: () => import('./components/upload-logs/upload-logs.vue')
     },
-    {
-        path: RoutePathNames[RouteNames.Report],
-        name: RouteNames.Report,
-        component: () => import('./components/report/report.vue'),
-        props:  route => ({ reportKey: route.params.key })
-    } as RouteRecordRaw
+    ...ReportRoutes
 ];

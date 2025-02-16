@@ -1,0 +1,50 @@
+@use "@assets/mixins.scss" as *;
+@use "@assets/variables.scss" as *;
+
+.report-container {
+    display: flex;
+    flex-direction: column;
+    gap: pxToRem(16);
+    padding: pxToRem(16) 0;
+
+    .report-header {
+        display: flex;
+        flex-direction: column;
+        gap: pxToRem(8);
+
+        .report-name {
+            font-size: pxToRem(24);
+            font-weight: $heavy;
+        }
+
+        .report-date {
+            font-size: pxToRem(18);
+        }
+    }
+
+    .report-content {
+        .report-panel-header {
+            display: flex;
+            align-items: center;
+            gap: pxToRem(8);
+
+            .zone-image {
+                height: pxToRem(42);
+                width: auto;
+                aspect-ratio: 3/1;
+            }
+
+            .grouped-fight-header {
+                font-size: pxToRem(20);
+                font-weight: $heavy;
+            }
+        }
+
+        .fights-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, 200px);
+            column-gap: pxToRem(8);
+            row-gap: pxToRem(8);
+        }
+    }
+}
